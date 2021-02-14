@@ -4,17 +4,33 @@
 #include<MMsystem.h>
 #include "waitForDefinition.c"
 
-void timerMessage(int);
+typedef struct
+{
+	int hr, min, sec;
+} TIMER_TIME;
+
+void timerMessage(TIMER_TIME);
+TIMER_TIME convertTime(int);
+int convertIntoSec(TIMER_TIME);
 
 void main()
 {
 	int startingSec, sec;
+	TIMER_TIME convertedTime, remainingTime, userTime;
+	
 	while(1)
 	{
+		// clearing the screen
 		system("cls");
-		printf("Enter the number of seconds for the timer: ");
-		scanf("%d", &sec);
+		
+		// taking user input
+		printf("Enter time in the following format:\nHOUR(S) MINUTE(S) SECONDS(S)\n");
 		fflush(stdin);
+		scanf("%d %d %d", &userTime.hr, &userTime.min, &userTime.sec);
+		
+		sec = convertIntoSec(userTime);
+		
+		convertedTime = convertTime(sec);
 		
 		for(startingSec=sec; startingSec > 0; startingSec--)
 		{
@@ -22,8 +38,9 @@ void main()
 			system("cls");
 			
 			// displaying messages
-			timerMessage(sec);
-			printf("SECONDS REMAINING: %d", startingSec);
+			timerMessage(convertedTime);
+			remainingTime = convertTime(startingSec);
+			printf("%d : %d : %d", remainingTime.hr, remainingTime.min, remainingTime.sec);
 			
 			// waiting for one second...
 			waitFor(1000.0);
@@ -36,7 +53,7 @@ void main()
 		system("cls");
 		
 		//displaying messages
-		timerMessage(sec);
+		timerMessage(convertedTime);
 		printf("Time is Up!\n");
 		printf("Press any key to continue...");
 		
@@ -46,7 +63,28 @@ void main()
 }
 
 // function to display the timer message
-void timerMessage(int sec)
+void timerMessage(TIMER_TIME timerTime)
 {
-	printf("Timer set for: %d seconds\n", sec);
+	printf("Timer set for: %d HOUR(S) %d MINUTE(S) %d SECOND(S)\n", timerTime.hr, timerTime.min, timerTime.sec);
+}
+
+TIMER_TIME convertTime(int sec)
+{
+	int finalSec, min, finalMin, hr;
+	
+	min = sec / 60;
+	finalSec = sec % 60;
+	hr = min / 60;
+	finalMin = min % 60;
+	
+	TIMER_TIME convertedTime = {hr, finalMin, finalSec};
+	
+	return convertedTime;
+}
+
+int convertIntoSec(TIMER_TIME timerTime)
+{
+	int sec = (timerTime.hr * 3600) + (timerTime.min * 60) + timerTime.sec;
+	
+	return sec;
 }
