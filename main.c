@@ -41,6 +41,7 @@ void main()
 		printf("Press any key to continue...");
 		
 		getch();
+		PlaySound(NULL, NULL, SND_ASYNC);
 	}
 }
 
