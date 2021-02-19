@@ -2,4 +2,4 @@ Software Developed by: Vaibhav Kumar (Using C)
 
 ------------------------------------------------------------------------
 
-Time Out Sound Effect from: zapsplat.com
+Alarm Tone Sound Effects from: zapsplat.com
