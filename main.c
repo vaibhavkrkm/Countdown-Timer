@@ -164,7 +164,7 @@ void main()
 					// displaying messages
 					remainingTime = convertTime(startingSec);
 					printf("Stopwatch [Status: RUNNING]\n%d : %d : %d\n", remainingTime.hr, remainingTime.min, remainingTime.sec);
-					puts("Press P to pause or S to stop the stopwatch.");
+					puts("Press P to pause or SPACE to stop the stopwatch.");
 					
 					// updating startingSec
 					startingSec++;
